@@ -2,6 +2,7 @@
 
 ## Overview
 This document describes the CI/CD pipeline that automatically builds and deploys a containerized application from a GitHub repository to AWS ECS (Elastic Container Service) with Fargate launch type. The pipeline triggers on pushes to the `ccodingwizard03-patch-1` branch, builds a Docker image, pushes it to Amazon ECR (Elastic Container Registry), and updates the ECS service with the new image.
+This pipeline was aimed for a simple deployment for the developemnt satge and is still the frame work to be usde on the other branches 
 
 ## Pipeline Components
 
@@ -62,25 +63,20 @@ This document describes the CI/CD pipeline that automatically builds and deploys
 
 ## Security Considerations
 
-1. **AWS Credentials:**
-   - Currently uses hardcoded AWS access keys in the workflow
-   - **Recommended Improvement:** Use GitHub Secrets to store sensitive credentials
-   - Rotate keys regularly and follow principle of least privilege
 
-2. **ECR Access:**
+1. **ECR Access:**
    - Pipeline has permissions to push images to ECR
    - ECS has permissions to pull images from ECR
 
 3. **Database Access:**
-   - ECS tasks should have appropriate security groups to access RDS
-   - Database credentials should be managed through AWS Secrets Manager or environment variables
+   - ECS tasks  have appropriate security groups to access RDS data base
+   - Database credentials are managed through AWS Secrets Manager or environment variables check on Task definiion 
+     
 
 ## Maintenance and Troubleshooting
 
 ### Common Issues
 1. **Build Failures:**
-   - Check Node.js version compatibility
-   - Verify all dependencies are properly declared in package.json
    - Examine build logs for specific errors
 
 2. **Deployment Failures:**
